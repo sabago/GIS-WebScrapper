@@ -1,4 +1,4 @@
-Application Architecture
+Application Architecture - WIP
 
                        +-------------------+
                        |   Web Browser     |
