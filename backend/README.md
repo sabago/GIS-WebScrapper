@@ -1,4 +1,4 @@
-PostGIS uses the SRID 4326 for geographic coordinates (WGS 84). -WIP
+PostGIS uses the SRID 4326 for geographic coordinates (WGS 84).
 
 CREATE TABLE search_records (
     id SERIAL PRIMARY KEY,
@@ -388,3 +388,7 @@ Shapes used can be found [here](https://www.census.gov/geographies/mapping-files
 
 More references
 https://postgis.net/docs/ST_Intersects.html
+
+curl "http://localhost:8888/api/grid?stateName=California"
+
+curl "http://localhost:8888/api/scrape-businesses?keyword=landscaping&grid=%7B%22north%22%3A42.781255898550725%2C%22south%22%3A42.46241531884058%2C%22east%22%3A-71.36323935214256%2C%22west%22%3A-71.79253080465172%7D"
