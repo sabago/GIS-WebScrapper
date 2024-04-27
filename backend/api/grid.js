@@ -1,13 +1,17 @@
-require('dotenv').config();
 const { Pool } = require('pg');
 
-// const postgres_db = process.env.POSTGRESQL_DB
+const path = require('path');
+require("dotenv").config({
+  path: (path.join(__dirname, '../.env'))
+});
+
+const postgres_db = process.env.POSTGRESQL_DB
 const postgres_pass = process.env.POSTGRESQL_PASS
 
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
-  database: 'geowebscrapper',
+  database: postgres_db,
   password: postgres_pass,
   port: 5432,
 });

@@ -11,6 +11,7 @@
     * [Application Architecture](#application-architecture)
     * [Prerequisites](#prerequisites)
     * [Node backend](#node-backend)
+        + [Search API Endpoint](#search-api-endpoint)
         + [Grid generation API](#grid-generation-api)
         + [Webscraper API](#webscraper-api)
         + [Web scraping logic](#web-scraping-logic)
@@ -65,9 +66,19 @@ This app requires:
 
 A Node.js server that handles API requests, interacts with external services like the Google Maps API, performs web scraping, and communicates with the PostGIS-enabled PostgreSQL database.
 
+### Search API Endpoint
+
+Given a state, keyword, city(optional), and country (optional and defaults to U.S), this endpoint will return the bounding coordinates from the center of the given location upto a 25mi radius. For more accurate results, it is recommended to pass in the optional city
+
+*NB: REQUIRES GOOGLE MAPS API KEY. SET IT IN THE .env FILE AS `GOOGLE_MAPS_API_KEY=your-goole-maps-key`*
+
 ### Grid generation API
 
-- Determines State Boundaries: Uses PostGIS and data from the US Consensus to determine the geographical boundaries of a given state using the northernmost, southernmost, easternmost, and westernmost points.
+- Determines State Boundaries: Uses PostGIS and data from the US Consensus  
+(/GeoWebScrapper/backend/tl_2023_us_state.zip) to determine the geographical boundaries of a given state using the northernmost, southernmost, easternmost, and westernmost points.
+
+Shapes used can be found [here](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.2023.html#list-tab-790442341)
+
 ```
 import shape files
 `shp2pgsql -s [SRID] -I -D -W [encoding] myfile.shp mytable | psql -U [username] -d mydb` [source](https://mapscaping.com/loading-spatial-data-into-postgis/#:~:text=One%20common%20way%20to%20load,load%20a%20shapefile%20called%20%E2%80%9Cmyfile.)
@@ -97,7 +108,9 @@ Given grid coordinates in a given state, this endpoint runs the Python webscrape
 
  A user interface built with React that allows users to input a geographic location and a keyword, and displays search results.
 
-- A form is used to collect the `state name` and a `business keyword` from the user.
+ *NB: REQUIRES GOOGLE MAPS API KEY. SET IT IN THE .env FILE AS `REACT_APP_GOOGLE_MAPS_API_KEY=your-goole-maps-key` FOR GRID-BASED SCRAPING OR ENTER IT ON THE UI FORM*
+
+- A form is used to collect the `state name` , `city name`, and a `business keyword` from the user. Optionally, also, collects a `Google Maps API key` if the user choose grid based scraping
 - Once the required data is collected, google maps is loaded with grids overlaying the given state.
 - Clicking on a grid triggers the web scraper API and returns a list of the business results.
 
@@ -105,6 +118,9 @@ Given grid coordinates in a given state, this endpoint runs the Python webscrape
 
 - Uses a PostgreSQL database with the PostGIS extension, designed to store and query geospatial data alongside other business information.
 - Extracted data is stored in a PostgreSQL DB with a well-defined schema that includes fields for all the information being collecting, plus geographic coordinates and search keywords for future queries or analytics.
+
+More references
+https://postgis.net/docs/ST_Intersects.html
 
 ## TO-DO
 
