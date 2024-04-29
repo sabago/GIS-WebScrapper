@@ -12,7 +12,7 @@ document.getElementById('location-form').addEventListener('submit', function(eve
   
     const fetchUrl = `http://localhost:8000/api/scrape?keyword=${encodeURIComponent(keyword)}&state=${encodeURIComponent(stateName)}&city=${encodeURIComponent(cityName)}`;
   
-    fetch(mapsUrl)
+    fetch(fetchUrl)
       .then(response => response.json())
       .then(data => {
         const summaryElement = document.getElementById('summary');

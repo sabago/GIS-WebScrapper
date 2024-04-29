@@ -48,9 +48,14 @@ const ScrapeComponent = () => {
 
     if( stateName && cityName && keyword) {
         fetchGridData();
-        setIsLoading(false);
     }
   }, [cityName, keyword, stateName]);
+
+  useEffect(()=> {
+    if(searchResults && isLoading) {
+      setIsLoading(false)
+    }
+  }, [searchResults])
 
   return (
     <div>
@@ -62,7 +67,7 @@ const ScrapeComponent = () => {
           <p>US State: {searchInputs.usState}</p>
           <p>City: {searchInputs.city}</p>
         </div>
-      ) : isLoading  && searchInputs? (
+      ) : isLoading  && searchInputs && !searchResults? (
         <div>Loading business data...</div>
       ): <div>
         <h3>{searchResults?.length} {keyword} businesses found in {cityName}, {stateName}</h3>
