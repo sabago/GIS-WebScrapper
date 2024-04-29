@@ -1,10 +1,11 @@
 import './App.css';
-import MapComponent from './Map';
+import ScrapeComponent from './Scrape';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <MapComponent stateName="Oklahoma"/>
+      {/* <MapComponent stateName="Oklahoma"/> */}
+      <ScrapeComponent />
     </div>
   );
 }

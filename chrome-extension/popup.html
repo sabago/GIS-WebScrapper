@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Business Search</title>
+  <link rel="stylesheet" href="popup.css"> <!-- If you have any CSS -->
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <h1>Business Search</h1>
+  <form id="location-form">
+    <label for="keyword">Keyword:</label>
+    <input type="text" id="keyword" name="keyword"><br>
+
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city"><br>
+
+    <label for="state">State:</label>
+    <input type="text" id="state" name="state"><br>
+
+    <!-- <label for="api-key">Google Maps API Key:</label>
+    <input type="text" id="api-key" name="api-key"><br> -->
+
+    <button type="submit">Search</button>
+  </form>
+  
+  <!-- Loading spinner element -->
+  <div id="loading-spinner" style="display: none;">
+    Loading...
+  </div>
+  
+  <!-- Results summary and CSV download button -->
+  <div id="results-summary" style="display: none;">
+    <p id="summary"></p>
+    <button id="download-csv">Download CSV</button>
+  </div>
+</body>
+</html>
